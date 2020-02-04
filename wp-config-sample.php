@@ -18,24 +18,40 @@
  * @package WordPress
  */
 
-// ** MySQL settings - You can get this info from your web host ** //
-/** The name of the database for WordPress */
-define( 'DB_NAME', 'database_name_here' );
+// ** MySQL settings - You can get this info from your web host - FILL THESE IN IF USING MySQL & COMMENT OUT THE SQLITE 3 SETTINGS BLOCK ** //
 
-/** MySQL database username */
-define( 'DB_USER', 'username_here' );
+/* MySQL settings */
+// define( 'DB_CHARSET', 'utf8' );
+// define( 'DB_NAME',     'database_name_here' );
+// define( 'DB_USER',     'username_here' );
+// define( 'DB_PASSWORD', 'password_here' );
+// define( 'DB_HOST',     'localhost' );
+// define( 'WPLANG', 'en' );
+// define( 'IMAGE_EDIT_OVERWRITE', true );
+// define('WP_ALLOW_REPAIR', true);
+// define('FS_CHMOD_DIR', (0755 & ~ umask()));
+// define('FS_CHMOD_FILE', (0644 & ~ umask()));
 
-/** MySQL database password */
-define( 'DB_PASSWORD', 'password_here' );
+/* SQLite3 settings - FILL THESE IN IF USING SQLITE, OR LEAVE AS IS FOR DEFAULT CONFIGURATION (IT WILL WORK AS IS) */
 
-/** MySQL hostname */
-define( 'DB_HOST', 'localhost' );
-
-/** Database Charset to use in creating database tables. */
+define( 'USE_MYSQL', false );
 define( 'DB_CHARSET', 'utf8' );
+define( 'WPLANG', 'en' );
+define('DB_DIR', dirname(__FILE__) . '/nsx/db');
+define('DB_FILE', '.ht.dbcore.sqlite');
+define('WP_ALLOW_REPAIR', true);
+define('FS_CHMOD_DIR', (0755 & ~ umask()));
+define('FS_CHMOD_FILE', (0644 & ~ umask()));
 
-/** The Database Collate type. Don't change this if in doubt. */
-define( 'DB_COLLATE', '' );
+/* SSL SETTINGS - COMMENT THESE OUT FOR NON HTTPS HOSTING (LOCALHOST, etc..)*/
+define( 'FORCE_SSL_LOGIN', true );
+define( 'FORCE_SSL_ADMIN', true );
+
+/* MySQL database table prefix - USE ANY PREFIX YOU WANT */
+
+$table_prefix = 'nsx_'; // Only numbers, letters, and underscores please!
+define( 'CUSTOM_USER_TABLE',      $table_prefix . 'nsx_u' );
+define( 'CUSTOM_USER_META_TABLE', $table_prefix . 'nsx_u_m' );
 
 /**#@+
  * Authentication Unique Keys and Salts.
@@ -57,27 +73,67 @@ define( 'NONCE_SALT',       'put your unique phrase here' );
 
 /**#@-*/
 
-/**
- * WordPress Database Table prefix.
- *
- * You can have multiple installations in one database if you give each
- * a unique prefix. Only numbers, letters, and underscores please!
- */
-$table_prefix = 'wp_';
+/* Custom WordPress URL. - RECOMMENDED - EDIT THESE TO REFLECT YOUR SITE */
+define( 'WP_SITEURL', 'https://example.com' );
+define( 'NOBLOGREDIRECT', 'https://example.com' );
+define( 'WP_HOME', 'https://example.com' );
 
-/**
- * For developers: WordPress debugging mode.
- *
- * Change this to true to enable the display of notices during development.
- * It is strongly recommended that plugin and theme developers use WP_DEBUG
- * in their development environments.
- *
- * For information on other constants that can be used for debugging,
- * visit the Codex.
- *
- * @link https://codex.wordpress.org/Debugging_in_WordPress
- */
+// MOVE WP-CONTENT DIRECTORY - NSX FOLDER WILL BECOME 'WP-CONTENT' DIRECTORY
+define( 'WP_CONTENT_DIR', dirname(__FILE__) . '/nsx' );
+define( 'WP_CONTENT_URL', 'https://example.com/nsx' );
+
+// Moving the plugins directory
+define( 'WP_PLUGIN_DIR', dirname(__FILE__) . '/nsx/addons' );
+define( 'WP_PLUGIN_URL',  'https://example.com/nsx/addons' );
+define( 'PLUGINDIR', dirname(__FILE__) . '/nsx/addons' );
+define( 'WPMU_PLUGIN_DIR', dirname(__FILE__) . '/nsx/system' );
+define( 'WPMU_PLUGIN_URL',  'https://example.com/nsx/system' );
+
+// UPLOADS FOLDER WILL BE THE 'CDN' DIRECTORY WITHIN THE NSX FOLDER
+// (YOU CAN LATER CREATE A SUBDOMAIN LINKING DIRECTLY TO THIS FOLDER IF YOU WANT TO SETUP YOUR SELF-HOSTED CDN FOR UPLOADED CONTENTS & MEDIAS)
+define( 'UPLOADS', '/nsx/cdn' );
+// define( 'COOKIE_DOMAIN', 'http://' . $_SERVER['HTTP_HOST'] ); // OPTIONAL
+
+/* Media Trash. */
+define( 'MEDIA_TRASH', true );
+
+/* Multisite. */
+// Disable post revisions - RECOMMENDED SETTINGS FOR PERFORMANCE
+define( 'WP_POST_REVISIONS', false );
+define( 'AUTOSAVE_INTERVAL', 180 );
+define( 'WP_ALLOW_MULTISITE', false );
+define( 'EMPTY_TRASH_DAYS', 30 );
+
+// ONLY ENBLE THIS ONCE YOU NO LONGER INTEND TO INSTALL NEW THEMES AND PLUGINS, THE ONES INSTALLED WILL CONTINUE TO WORK
+// THIS WILL DISABLE ANY MODIFICATION TO THEMES AND PLUGINS (USEFUL FOR MULTIUSER ADMIN INSTALLATIONS)
+
+/* define( 'DISALLOW_FILE_MODS', true ); */
+
+/* WordPress debug mode for developers. - RECOMMENDED SETTINGS FOR PRODUCTION ONLY AS ALL DEBUGGING AND LOGS ARE DISABLED HERE + EXTENDED CRON CALLS FOR PERFORMANCE */
+@ini_set( 'log_errors', 'Off' );
+@ini_set( 'display_errors', 'Off' );
+define( 'SCRIPT_DEBUG', true );
+define( 'WP_DISABLE_FATAL_ERROR_HANDLER', true );   // 5.2 and later
 define( 'WP_DEBUG', false );
+define( 'WP_DEBUG_LOG', false );
+define( 'WP_DEBUG_DISPLAY', false );
+define( 'SAVEQUERIES', false );
+define( 'WP_CRON_LOCK_TIMEOUT', 300 );
+
+/* PHP Memory - SOME HOSTS DO NOT ALLOW SUCH HIGH RESOURCES, USE AS APPROPRIATE TO YOUR ENVIRONMENT */
+define( 'WP_MEMORY_LIMIT', '512M' );
+define( 'WP_MAX_MEMORY_LIMIT', '1024M' );
+
+/* WordPress Cache */
+define('WP_CACHE', true); // USEFUL FOR HUMMINGBIRD PLUGIN
+
+/* Compression - RECOMMENDED SETTINGS */
+define( 'COMPRESS_CSS', true );
+define( 'COMPRESS_SCRIPTS', true );
+define( 'ENFORCE_GZIP', true );
+
+/* Updates - ONLY ALLOW MINOR UPDATES - REF. TO WORDPRESS CODEX IF YOU WANT TO CHANGE THIS */
+define( 'WP_AUTO_UPDATE_CORE', 'minor' );
 
 /* That's all, stop editing! Happy publishing. */
 
