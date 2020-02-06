@@ -31,7 +31,7 @@
 // define('WP_ALLOW_REPAIR', true);
 // define('FS_CHMOD_DIR', (0755 & ~ umask()));
 // define('FS_CHMOD_FILE', (0644 & ~ umask()));
-
+// define( 'WP_DEFAULT_THEME', 'chaplin' );
 /* SQLite3 settings - FILL THESE IN IF USING SQLITE, OR LEAVE AS IS FOR DEFAULT CONFIGURATION (IT WILL WORK AS IS) */
 
 define( 'USE_MYSQL', false );
@@ -42,6 +42,11 @@ define('DB_FILE', '.ht.dbcore.sqlite');
 define('WP_ALLOW_REPAIR', true);
 define('FS_CHMOD_DIR', (0755 & ~ umask()));
 define('FS_CHMOD_FILE', (0644 & ~ umask()));
+define( 'WP_DEFAULT_THEME', 'chaplin' );
+
+// Useful for subdomain install
+// define( 'SUBDOMAIN_INSTALL', 'false' );
+
 
 /* SSL SETTINGS - COMMENT THESE OUT FOR NON HTTPS HOSTING (LOCALHOST, etc..)*/
 define( 'FORCE_SSL_LOGIN', true );
