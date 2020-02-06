@@ -32,8 +32,8 @@
 // define('FS_CHMOD_DIR', (0755 & ~ umask()));
 // define('FS_CHMOD_FILE', (0644 & ~ umask()));
 // define( 'WP_DEFAULT_THEME', 'chaplin' );
-/* SQLite3 settings - FILL THESE IN IF USING SQLITE, OR LEAVE AS IS FOR DEFAULT CONFIGURATION (IT WILL WORK AS IS) */
 
+/* SQLite3 settings - FILL THESE IN IF USING SQLITE, OR LEAVE AS IS FOR DEFAULT CONFIGURATION (IT WILL WORK AS IS) */
 define( 'USE_MYSQL', false );
 define( 'DB_CHARSET', 'utf8' );
 define( 'WPLANG', 'en' );
